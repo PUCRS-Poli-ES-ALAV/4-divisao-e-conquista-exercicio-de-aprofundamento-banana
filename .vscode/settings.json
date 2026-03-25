@@ -1,0 +1,10 @@
+{
+    "java.project.sourcePaths": ["src/main/java"],
+    "java.project.outputPath": "out/classes",
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "code-runner.runInTerminal": true,
+    "code-runner.clearPreviousOutput": true,
+    "code-runner.executorMap": {
+        "java": "cd $workspaceRoot && javac -encoding UTF-8 -d out/classes src/main/java/br/pucrs/App.java src/main/java/br/pucrs/MergeSort.java src/main/java/br/pucrs/MaxVal1.java && java -cp out/classes br.pucrs.App"
+    }
+}
