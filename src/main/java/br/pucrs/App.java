@@ -19,6 +19,16 @@ public class App
             System.out.println();
         }
         System.out.println("=".repeat(80));
+        System.out.println("TESTE DO ALGORITMO MAXVAL1 - BUSCA LINEAR (SEM DIVISÃO E CONQUISTA)");
+        System.out.println("=".repeat(80));
+        System.out.println();
+        
+        //executar testes do MaxVal1 para cada tamanho
+        for (int size : sizes) {
+            testarMaxVal1(size);
+            System.out.println();
+        }
+        System.out.println("=".repeat(80));
         System.out.println("FIM DOS TESTES");
         System.out.println("=".repeat(80));
     }
@@ -55,6 +65,50 @@ public class App
         }
         System.out.println();
     }
+    
+    /**
+     * Testa o MaxVal1 com um tamanho específico
+     * @param size tamanho do vetor
+     */
+    private static void testarMaxVal1(int size) {
+        System.out.println("TESTE COM VETOR DE TAMANHO: " + size);
+        System.out.println("-".repeat(80));
+        
+        // Criar array com valores aleatórios
+        long[] arr = gerarVetorAleatorio(size);
+        
+        // Criar instância do MaxVal1
+        MaxVal1 finder = new MaxVal1();
+        
+        // Medir tempo de início
+        long startTime = System.nanoTime();
+        
+        // Executar o algoritmo
+        long maxValue = finder.maxVal1(arr, size);
+        long iterations = finder.getIterationCount();
+        
+        // Medir tempo de fim
+        long endTime = System.nanoTime();
+        
+        // Calcular tempo em milissegundos
+        double timeMs = (endTime - startTime) / 1_000_000.0;
+        
+        // Validar o resultado (verificar se realmente é o maior)
+        boolean isCorrect = validarMaximo(arr, maxValue);
+        
+        // Exibir resultados
+        System.out.printf("Maior valor encontrado: %,d%n", maxValue);
+        System.out.printf("Número de iterações: %,d%n", iterations);
+        System.out.printf("Tempo gasto: %.2f ms%n", timeMs);
+        System.out.printf("Status da busca: %s%n", isCorrect ? "✓ CORRETO" : "✗ ERRO");
+        
+        // Mostrar alguns valores como amostra
+        System.out.print("Primeiros 10 elementos: ");
+        for (int i = 0; i < Math.min(10, size); i++) {
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println();
+    }
 
     //Gera um vetor com valores inteiros aleatórios
     //@param size tamanho do vetor
@@ -75,6 +129,21 @@ public class App
     private static boolean validarOrdenacao(long[] arr) {
         for (int i = 0; i < arr.length - 1; i++) {
             if (arr[i] > arr[i + 1]) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    /**
+     * Valida se o valor fornecido é realmente o maior no array
+     * @param arr vetor a validar
+     * @param maxValue valor que deveria ser o máximo
+     * @return true se é o maior, false caso contrário
+     */
+    private static boolean validarMaximo(long[] arr, long maxValue) {
+        for (long value : arr) {
+            if (value > maxValue) {
                 return false;
             }
         }
