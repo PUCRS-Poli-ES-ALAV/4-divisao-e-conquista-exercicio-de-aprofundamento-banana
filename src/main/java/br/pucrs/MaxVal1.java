@@ -1,45 +1,43 @@
 package br.pucrs;
 
-/**
- * Classe que implementa o algoritmo linear para encontrar o maior valor em um vetor
- * (não utiliza divisão e conquista)
- */
+// Implementa busca linear para encontrar o maior valor em um array
+// Não usa divisão e conquista, percorre sequencialmente o array
 public class MaxVal1 {
-
+    // Armazena o número de iterações realizadas
     private long iterationCount;
 
-    /**
-     * Encontra o maior valor no array usando busca linear
-     * @param A array de entrada
-     * @param n tamanho do array
-     * @return maior valor encontrado
-     */
+    // Busca pelo maior valor percorrendo o array sequencialmente
+    // Complexidade: O(n) - percorre todos os elementos uma vez
     public long maxVal1(long[] A, int n) {
         iterationCount = 0;
 
+        // Valida se o array não está vazio
         if (n == 0) {
             throw new IllegalArgumentException("Array vazio");
         }
 
-        long max = A[0]; // Inicializa com primeiro elemento
-        iterationCount++; // Conta a inicialização
+        // Inicializa o máximo com o primeiro elemento
+        long max = A[0];
+        // Incrementa contador de operações
+        iterationCount++;
 
-        // Percorre o array comparando cada elemento
+        // Loop que percorre todo o array procurando o maior valor
         for (int i = 1; i < n; i++) {
-            iterationCount++; // Conta cada iteração do loop
+            // Conta cada iteração do loop principal
+            iterationCount++;
 
+            // Se encontra um valor maior, atualiza o máximo
             if (A[i] > max) {
                 max = A[i];
-                iterationCount++; // Conta a atribuição quando encontra maior
+                // Incrementa contador extra para a atribuição
+                iterationCount++;
             }
         }
 
         return max;
     }
 
-    /**
-     * Retorna o número total de iterações da última execução
-     */
+    // Retorna o total de iterações da última execução
     public long getIterationCount() {
         return iterationCount;
     }

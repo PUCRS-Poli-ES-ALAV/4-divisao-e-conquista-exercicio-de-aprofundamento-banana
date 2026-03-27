@@ -1,11 +1,13 @@
 package br.pucrs;
-public class MergeSort {//algoritmo Merge Sort com contagem de iterações
+
+// Implementa o algoritmo Merge Sort usando divisão e conquista
+// Conta o número de iterações (chamadas recursivas) durante a execução
+public class MergeSort {
+    // Variável para armazenar a contagem total de iterações
     private long iterationCount;
     
-    //Executa o Merge Sort no array fornecido
-    //@param arr array a ser ordenado
-    //@param n tamanho do array
-    //@return número de iterações executadas
+    // Inicia o Merge Sort pelo método recursivo
+    // Retorna o número total de iterações executadas
     public long mergeSort(long[] arr, int n) {
         iterationCount = 0;
         if (n > 1) {
@@ -14,49 +16,55 @@ public class MergeSort {//algoritmo Merge Sort com contagem de iterações
         return iterationCount;
     }
     
-    //Implementação recursiva do Merge Sort
-    //@param arr array a ser ordenado
-    //@param left índice esquerdo
-    //@param right índice direito
+    // Implementação recursiva: divide o array e ordena recursivamente
+    // left e right definem os índices do subarray atual
     private void mergeSortRecursive(long[] arr, int left, int right) {
-        iterationCount++; //conta cada chamada recursiva
+        // Incrementa contador para cada chamada recursiva do algoritmo
+        iterationCount++;
         
-        if (left >= right) {//caso base: lista com um elemento
+        // Caso base: quando há apenas um elemento, o array está ordenado
+        if (left >= right) {
             return;
         }
-        int mid = (left + right) / 2;//divide o array em duas metades
-        mergeSortRecursive(arr, left, mid);//ordena recursivamente a metade esquerda
-        mergeSortRecursive(arr, mid + 1, right);//ordena recursivamente a metade direita
-        merge(arr, left, mid, right);//mescla as duas metades ordenadas
-
+        // Encontra o ponto do meio para dividir o array em duas metades
+        int mid = (left + right) / 2;
+        // Ordena recursivamente a primeira metade (esquerda)
+        mergeSortRecursive(arr, left, mid);
+        // Ordena recursivamente a segunda metade (direita)
+        mergeSortRecursive(arr, mid + 1, right);
+        // Mescla as duas metades ordenadas
+        merge(arr, left, mid, right);
     }
     
-     //Mescla dois subarrays ordenados em um array ordenado
-     //@param arr array principal
-     //@param left índice esquerdo
-     //@param mid índice do meio
-     //@param right índice direito
+    // Mescla dois subarrays ordenados em um único array ordenado
+    // left a mid: primeira metade, mid+1 a right: segunda metade
     private void merge(long[] arr, int left, int mid, int right) {
-        //tamanhos dos dois subarrays
+        // Calcula o tamanho do subarray da esquerda
         int n1 = mid - left + 1;
+        // Calcula o tamanho do subarray da direita
         int n2 = right - mid;
-        //arrays temporários
+        // Cria array temporário para a metade esquerda
         long[] leftArr = new long[n1];
+        // Cria array temporário para a metade direita
         long[] rightArr = new long[n2];
-        //copia dados para os arrays temporários
+        
+        // Copia os elementos para o array temporário esquerdo
         for (int i = 0; i < n1; i++) {
             iterationCount++;
             leftArr[i] = arr[left + i];
         }
+        // Copia os elementos para o array temporário direito
         for (int j = 0; j < n2; j++) {
             iterationCount++;
             rightArr[j] = arr[mid + 1 + j];
         }
-        //mescla os arrays temporários de volta no array principal
-        int i = 0;
-        int j = 0;
-        int k = left;
         
+        // Inicializa os índices para o processo de mesclagem
+        int i = 0;      // Índice para leftArr
+        int j = 0;      // Índice para rightArr
+        int k = left;   // Índice para o array original
+        
+        // Compara elementos dos dois arrays e coloca o menor no array original
         while (i < n1 && j < n2) {
             iterationCount++;
             if (leftArr[i] <= rightArr[j]) {
@@ -66,18 +74,21 @@ public class MergeSort {//algoritmo Merge Sort com contagem de iterações
             }
         }
         
-        while (i < n1) {//copia os elementos restantes da metade esquerda
+        // Copia os elementos restantes do array esquerdo (se houver)
+        while (i < n1) {
             iterationCount++;
             arr[k++] = leftArr[i++];
         }
         
-        while (j < n2) {//copia os elementos restantes da metade direita
+        // Copia os elementos restantes do array direito (se houver)
+        while (j < n2) {
             iterationCount++;
             arr[k++] = rightArr[j++];
         }
     }
     
-    public long getIterationCount() {//retorna o número total de iterações da última execução
+    // Retorna o número total de iterações da última execução do algoritmo
+    public long getIterationCount() {
         return iterationCount;
     }
 }
