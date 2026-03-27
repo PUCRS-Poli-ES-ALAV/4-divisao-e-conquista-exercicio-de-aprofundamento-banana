@@ -29,6 +29,17 @@ public class App
             System.out.println();
         }
         System.out.println("=".repeat(80));
+        System.out.println("TESTE DO ALGORITMO MULTIPLICACAO INTEIRA - DIVISAO E CONQUISTA");
+        System.out.println("=".repeat(80));
+        System.out.println();
+        
+        int[] bitSizes = {4, 16, 64};
+        //executar testes da multiplicação para cada tamanho de bits
+        for (int bits : bitSizes) {
+            testarMultiply(bits);
+            System.out.println();
+        }
+        System.out.println("=".repeat(80));
         System.out.println("FIM DOS TESTES");
         System.out.println("=".repeat(80));
     }
@@ -148,5 +159,40 @@ public class App
             }
         }
         return true;
+    }
+    
+    /**
+     * Testa a multiplicação com números de n bits
+     * @param bits número de bits dos operandos
+     */
+    private static void testarMultiply(int bits) {
+        System.out.println("TESTE COM NUMEROS DE " + bits + " BITS");
+        System.out.println("-".repeat(80));
+        
+        // Gerar x e y aleatórios de bits bits
+        Random random = new Random(System.currentTimeMillis());
+        long mask = (bits == 64) ? -1L : ((1L << bits) - 1);
+        long x = random.nextLong() & mask;
+        long y = random.nextLong() & mask;
+        
+        Multiply multiplier = new Multiply();
+        
+        long startTime = System.nanoTime();
+        long result = multiplier.multiply(x, y, bits);
+        long endTime = System.nanoTime();
+        
+        long iterations = multiplier.getIterationCount();
+        double timeMs = (endTime - startTime) / 1_000_000.0;
+        
+        // Calcular resultado esperado
+        long expected = x * y;
+        
+        System.out.printf("x: %,d (%d bits)%n", x, bits);
+        System.out.printf("y: %,d (%d bits)%n", y, bits);
+        System.out.printf("Resultado: %,d%n", result);
+        System.out.printf("Esperado: %,d%n", expected);
+        System.out.printf("Correto: %s%n", result == expected ? "✓ SIM" : "✗ NAO");
+        System.out.printf("Número de iterações: %,d%n", iterations);
+        System.out.printf("Tempo gasto: %.2f ms%n", timeMs);
     }
 }

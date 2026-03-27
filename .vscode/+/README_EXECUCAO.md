@@ -2,33 +2,32 @@
 
 ## 🚀 Execução Rápida
 
-### Opção 1: Maven Exec Plugin (Recomendado)
+### ✅ Comando Recomendado:
 ```bash
-# Compilar e executar em um comando
 mvn clean compile exec:java
-
-# Ou separadamente:
-mvn clean compile
-mvn exec:java
 ```
 
-### Opção 2: Java Direto (após compilação)
+---
+
+## 🛠️ Solução de Problemas de Java
+
+### **Erro: "Maven 4.x requires Java 17"**
+**✅ SOLUÇÃO:** O projeto foi configurado para usar **Java 11** (versão disponível no sistema).
+
+### **Verificar versão Java:**
 ```bash
-# Compilar
-mvn compile
-
-# Executar diretamente
-java -cp target/classes br.pucrs.App
+java -version
+# Deve mostrar: openjdk version "11.x.x"
 ```
 
-### Opção 3: Criar JAR executável
+### **Se ainda houver problemas:**
 ```bash
-# Criar JAR com dependências
-mvn clean package
-
-# Executar o JAR
-java -jar target/divisao-e-conquista-exercicio-de-aprofundamento-v1.0-snap.jar
+# Forçar uso do Java 11
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+mvn clean compile exec:java
 ```
+
+---
 
 ## 📊 O que o Programa Executa
 
@@ -44,6 +43,8 @@ O programa testa **dois algoritmos** com **três tamanhos diferentes**:
 - **Tamanhos:** 32, 2.048, 1.048.576 elementos
 - **Mede:** Iterações, tempo, validação do máximo
 
+---
+
 ## 📈 Resultados Esperados
 
 ### Saída Típica:
@@ -56,7 +57,6 @@ TESTE COM VETOR DE TAMANHO: 32
 Número de iterações: 312
 Tempo gasto: 0.45 ms
 Status de ordenação: ✓ CORRETO
-Primeiros 10 elementos: -123456 0 123456 ...
 
 ================================================================================
 TESTE DO ALGORITMO MAXVAL1 - BUSCA LINEAR (SEM DIVISÃO E CONQUISTA)
@@ -67,27 +67,30 @@ Maior valor encontrado: 999856
 Número de iterações: 94
 Tempo gasto: 0.02 ms
 Status da busca: ✓ CORRETO
-Primeiros 10 elementos: -456789 0 123456 ...
 ```
 
-## 🛠️ Solução de Problemas
+---
 
-### Erro: "Could not find or load main class"
+## 🛠️ Outros Problemas Comuns
+
+### **Erro: "Could not find or load main class"**
 ```bash
 # Solução: Compilar primeiro
 mvn clean compile
 mvn exec:java
 ```
 
-### Erro: "Java version mismatch"
-- O projeto usa Java 17
-- Verifique se tem JDK 17+ instalado
-
-### Erro: "Maven not found"
+### **Erro: "Maven not found"**
 ```bash
-# Instalar Maven se necessário
+# Instalar Maven
 sudo apt update && sudo apt install maven
 ```
+
+### **Erro de compilação:**
+- Verifique se todos os arquivos `.java` estão na pasta correta
+- Execute `mvn clean` para limpar arquivos temporários
+
+---
 
 ## 📁 Estrutura do Projeto
 
@@ -99,16 +102,24 @@ src/
 │   └── MaxVal1.java       # Algoritmo MaxVal1
 └── test/java/br/pucrs/
     └── AppTest.java       # Testes unitários
+
+.mvn/settings.xml          # Configurações Maven
+pom.xml                    # Configuração do projeto
+run.sh                     # Script de execução
 ```
 
-## 📚 Documentação
+---
 
-- `MERGE_SORT_EXPLICACAO.md` - Explicação detalhada do Merge Sort
-- `VISUALIZACAO_MERGE_SORT.md` - Exemplos visuais
-- `MAXVAL1_EXPLICACAO.md` - Explicação do MaxVal1
-- `IMPLEMENTACAO_RESUMO.md` - Resumo geral
+## 🎯 Status Atual
 
-## 🎯 Próximos Passos
+✅ **Merge Sort** - Implementado e testado  
+✅ **MaxVal1** - Implementado e testado  
+✅ **Configuração Java 11** - Ajustada  
+✅ **Execução Maven** - Configurada  
+
+---
+
+## 📚 Próximos Passos
 
 Após executar com sucesso, implemente:
 1. **MaxVal2** - Algoritmo de máximo com divisão e conquista
@@ -117,4 +128,4 @@ Após executar com sucesso, implemente:
 
 ---
 
-**Execute `mvn clean compile exec:java` e veja os algoritmos em ação! 🚀**
+**🎉 Execute `mvn clean compile exec:java` e veja os algoritmos funcionando!**
