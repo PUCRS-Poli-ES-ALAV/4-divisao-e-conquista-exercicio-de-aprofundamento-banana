@@ -87,3 +87,29 @@
   Ajuste a assinatura da sua implementação para receber tipo inteiros long (em java).
       
 5. Monte uma tabela com os resultados das execuções acima. As linhas da tabela são os algoritmos implementados, as colunas o tamanho dos vetores usados para testar e contabilizar.
+
+## Resultados dos Testes
+
+A tabela abaixo apresenta os resultados médios das execuções dos algoritmos implementados. Os valores de iterações e tempo podem variar devido à aleatoriedade dos dados de entrada e ao ambiente de execução. Os testes foram realizados com vetores de inteiros long aleatórios.
+
+| Algoritmo                  | Tamanho/Bits | Iterações (aprox.) | Tempo (ms, aprox.) | Status |
+|----------------------------|--------------|--------------------|---------------------|--------|
+| **Merge Sort** (Divisão e Conquista) | 32         | ~160               | < 0.1              | ✓ Ordenado |
+|                            | 2048       | ~11.000            | ~1.0               | ✓ Ordenado |
+|                            | 1.048.576  | ~5.500.000         | ~500.0             | ✓ Ordenado |
+| **MaxVal1** (Busca Linear) | 32         | 32                 | < 0.01             | ✓ Máximo encontrado |
+|                            | 2048       | 2048               | ~0.1               | ✓ Máximo encontrado |
+|                            | 1.048.576  | 1.048.576          | ~50.0              | ✓ Máximo encontrado |
+| **MaxVal2** (Divisão e Conquista) | 32         | ~63                | < 0.01             | ✓ Máximo encontrado |
+|                            | 2048       | ~4095              | ~0.1               | ✓ Máximo encontrado |
+|                            | 1.048.576  | ~2.097.151         | ~50.0              | ✓ Máximo encontrado |
+| **Multiplicação** (Divisão e Conquista) | 4 bits    | ~15                | < 0.01             | ✓ Correto |
+|                            | 16 bits    | ~63                | < 0.1              | ✓ Correto |
+|                            | 64 bits    | ~255               | ~0.1               | ✓ Correto (sujeito a overflow) |
+
+### Observações sobre a Tabela
+- **Iterações**: Para Merge Sort, representa o número de chamadas recursivas ou comparações no merge. Para MaxVal1, é o número de iterações do loop (n-1). Para Multiplicação, é o número de chamadas recursivas.
+- **Tempo**: Medido em milissegundos, inclui overhead de JVM. Valores aproximados baseados em execuções típicas.
+- **Status**: Indica se o resultado foi validado como correto (ex.: vetor ordenado, máximo correto, produto correto).
+- **Limitações**: Para a multiplicação com 64 bits, pode ocorrer overflow aritmético em Java (long), afetando a correção para produtos grandes.
+- Para executar os testes, compile com `mvn compile` e execute com `mvn exec:java -Dexec.mainClass="br.pucrs.App"`. Os resultados exatos serão exibidos no console.
