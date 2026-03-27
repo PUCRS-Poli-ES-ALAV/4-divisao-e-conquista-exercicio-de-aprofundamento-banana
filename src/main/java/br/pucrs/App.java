@@ -1,5 +1,6 @@
 package br.pucrs;
 import java.util.Random;
+import java.math.BigInteger;
 
 //testar o algoritmo Merge Sort
 //com diferentes tamanhos de vetores
@@ -47,6 +48,16 @@ public class App
         //executar testes da multiplicação para cada tamanho de bits
         for (int bits : bitSizes) {
             testarMultiply(bits);
+            System.out.println();
+        }
+        System.out.println("=".repeat(80));
+        System.out.println("TESTE DO ALGORITMO MULTIPLICACAO INTEIRA (STRINGS) - DIVISAO E CONQUISTA");
+        System.out.println("=".repeat(80));
+        System.out.println();
+        
+        //executar testes da multiplicação com strings para cada tamanho de bits
+        for (int bits : bitSizes) {
+            testarBitMultiply(bits);
             System.out.println();
         }
         System.out.println("=".repeat(80));
@@ -216,6 +227,20 @@ public class App
     }
     
     /**
+     * Gera uma string binária aleatória de n bits
+     * @param bits número de bits
+     * @param random gerador aleatório
+     * @return string binária
+     */
+    private static String gerarStringBinaria(int bits, Random random) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < bits; i++) {
+            sb.append(random.nextInt(2));
+        }
+        return sb.toString();
+    }
+    
+    /**
      * Testa a multiplicação com números de n bits
      * @param bits número de bits dos operandos
      */
@@ -246,6 +271,40 @@ public class App
         System.out.printf("Resultado: %,d%n", result);
         System.out.printf("Esperado: %,d%n", expected);
         System.out.printf("Correto: %s%n", result == expected ? "✓ SIM" : "✗ NAO");
+        System.out.printf("Número de iterações: %,d%n", iterations);
+        System.out.printf("Tempo gasto: %.2f ms%n", timeMs);
+    }
+    
+    /**
+     * Testa a multiplicação com strings binárias de n bits
+     * @param bits número de bits das strings
+     */
+    private static void testarBitMultiply(int bits) {
+        System.out.println("TESTE COM STRINGS DE " + bits + " BITS");
+        System.out.println("-".repeat(80));
+        
+        // Gerar X e Y como strings binárias aleatórias
+        Random random = new Random(System.currentTimeMillis());
+        String X = gerarStringBinaria(bits, random);
+        String Y = gerarStringBinaria(bits, random);
+        
+        long startTime = System.nanoTime();
+        long result = BitMultiply.multiply(X, Y);
+        long endTime = System.nanoTime();
+        
+        long iterations = BitMultiply.getIterationCount();
+        double timeMs = (endTime - startTime) / 1_000_000.0;
+        
+        // Calcular resultado esperado usando BigInteger
+        BigInteger xVal = new BigInteger(X, 2);
+        BigInteger yVal = new BigInteger(Y, 2);
+        BigInteger expectedBig = xVal.multiply(yVal);
+        
+        System.out.printf("X: %s (%d bits)%n", X, bits);
+        System.out.printf("Y: %s (%d bits)%n", Y, bits);
+        System.out.printf("Resultado: %,d%n", result);
+        System.out.printf("Esperado: %s%n", expectedBig.toString());
+        System.out.printf("Correto: %s%n", expectedBig.bitLength() <= 64 && expectedBig.longValue() == result ? "✓ SIM" : "✗ NAO");
         System.out.printf("Número de iterações: %,d%n", iterations);
         System.out.printf("Tempo gasto: %.2f ms%n", timeMs);
     }

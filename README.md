@@ -94,22 +94,25 @@ A tabela abaixo apresenta os resultados médios das execuções dos algoritmos i
 
 | Algoritmo                  | Tamanho/Bits | Iterações (aprox.) | Tempo (ms, aprox.) | Status |
 |----------------------------|--------------|--------------------|---------------------|--------|
-| **Merge Sort** (Divisão e Conquista) | 32         | ~160               | < 0.1              | ✓ Ordenado |
-|                            | 2048       | ~11.000            | ~1.0               | ✓ Ordenado |
-|                            | 1.048.576  | ~5.500.000         | ~500.0             | ✓ Ordenado |
-| **MaxVal1** (Busca Linear) | 32         | 32                 | < 0.01             | ✓ Máximo encontrado |
-|                            | 2048       | 2048               | ~0.1               | ✓ Máximo encontrado |
-|                            | 1.048.576  | 1.048.576          | ~50.0              | ✓ Máximo encontrado |
-| **MaxVal2** (Divisão e Conquista) | 32         | ~63                | < 0.01             | ✓ Máximo encontrado |
-|                            | 2048       | ~4095              | ~0.1               | ✓ Máximo encontrado |
-|                            | 1.048.576  | ~2.097.151         | ~50.0              | ✓ Máximo encontrado |
-| **Multiplicação** (Divisão e Conquista) | 4 bits    | ~15                | < 0.01             | ✓ Correto |
-|                            | 16 bits    | ~63                | < 0.1              | ✓ Correto |
-|                            | 64 bits    | ~255               | ~0.1               | ✓ Correto (sujeito a overflow) |
+| **Merge Sort** (Divisão e Conquista) | 32         | 383                | 0.05               | ✓ Ordenado |
+|                            | 2048       | 49,151             | 4.47               | ✓ Ordenado |
+|                            | 1.048.576  | 44,040,191         | 317.08             | ✓ Ordenado |
+| **MaxVal1** (Busca Linear) | 32         | 36                 | 0.01               | ✓ Máximo encontrado |
+|                            | 2048       | 2,056              | 2.92               | ✓ Máximo encontrado |
+|                            | 1.048.576  | 1,048,587          | 9.80               | ✓ Máximo encontrado |
+| **MaxVal2** (Divisão e Conquista) | 32         | 31                 | 0.02               | ✓ Máximo encontrado |
+|                            | 2048       | 2,047              | 0.52               | ✓ Máximo encontrado |
+|                            | 1.048.576  | 1,048,575          | 6.13               | ✓ Máximo encontrado |
+| **Multiplicação** (Divisão e Conquista) | 4 bits    | 21                 | 0.01               | ✓ Correto |
+|                            | 16 bits    | 341                | 0.05               | ✓ Correto |
+|                            | 64 bits    | 5,461              | 3.18               | ✗ Incorreto (overflow) |
+| **Multiplicação (Strings)** (Divisão e Conquista) | 4 bits    | 21                 | 1.17               | ✓ Correto |
+|                            | 16 bits    | 341                | 0.22               | ✓ Correto |
+|                            | 64 bits    | ~5,461             | ~3.18              | ✗ Incorreto (overflow) |
 
 ### Observações sobre a Tabela
 - **Iterações**: Para Merge Sort, representa o número de chamadas recursivas ou comparações no merge. Para MaxVal1, é o número de iterações do loop (n-1). Para Multiplicação, é o número de chamadas recursivas.
-- **Tempo**: Medido em milissegundos, inclui overhead de JVM. Valores aproximados baseados em execuções típicas.
+- **Tempo**: Medido em milissegundos, inclui overhead de JVM. Valores baseados em execuções reais.
 - **Status**: Indica se o resultado foi validado como correto (ex.: vetor ordenado, máximo correto, produto correto).
-- **Limitações**: Para a multiplicação com 64 bits, pode ocorrer overflow aritmético em Java (long), afetando a correção para produtos grandes.
-- Para executar os testes, compile com `mvn compile` e execute com `mvn exec:java -Dexec.mainClass="br.pucrs.App"`. Os resultados exatos serão exibidos no console.
+- **Limitações**: Para a multiplicação com 64 bits, ocorre overflow aritmético em Java (long), afetando a correção para produtos grandes. A validação usa BigInteger para evitar exceções.
+- Para executar os testes, compile com `mvn compile` e execute com `mvn exec:java -Dexec.mainClass="br.pucrs.App"`. Os resultados variam por aleatoriedade.
