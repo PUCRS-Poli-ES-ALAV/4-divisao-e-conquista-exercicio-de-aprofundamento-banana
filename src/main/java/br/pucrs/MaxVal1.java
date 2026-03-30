@@ -1,44 +1,34 @@
 package br.pucrs;
 
-// Implementa busca linear para encontrar o maior valor em um array
-// Não usa divisão e conquista, percorre sequencialmente o array
+// busca linear para encontrar o maior valor em um array
+//n usa divisão e conquista, percorre sequencialmente o array
 public class MaxVal1 {
-    // Armazena o número de iterações realizadas
+    //armazena o nmro de iterações realizadas
     private long iterationCount;
-
-    // Busca pelo maior valor percorrendo o array sequencialmente
-    // Complexidade: O(n) - percorre todos os elementos uma vez
+    //busca pelo maior val percorrendo o array sequencialmente
+    //complexidade: O(n) - percorre todos os elementos uma vez
     public long maxVal1(long[] A, int n) {
         iterationCount = 0;
 
-        // Valida se o array não está vazio
-        if (n == 0) {
+        if (n == 0) {        // valida se o array n está vazio
             throw new IllegalArgumentException("Array vazio");
         }
 
-        // Inicializa o máximo com o primeiro elemento
-        long max = A[0];
-        // Incrementa contador de operações
-        iterationCount++;
+        long max = A[0]; // inicializa o max com o primeiro elemento
+        iterationCount++;//incrementa contador de operações
 
-        // Loop que percorre todo o array procurando o maior valor
-        for (int i = 1; i < n; i++) {
-            // Conta cada iteração do loop principal
-            iterationCount++;
+        for (int i = 1; i < n; i++) {//loop que percorre todo o array procurando o maior valor
+            iterationCount++;//conta cada iteração do loop principal
 
-            // Se encontra um valor maior, atualiza o máximo
-            if (A[i] > max) {
+            if (A[i] > max) { //se encontra um val maior, atualiza o max
                 max = A[i];
-                // Incrementa contador extra para a atribuição
-                iterationCount++;
+                iterationCount++;   //incrementa contador (count) extra para a atribuição
             }
         }
-
         return max;
     }
 
-    // Retorna o total de iterações da última execução
-    public long getIterationCount() {
+    public long getIterationCount() {//retorna o total de iterações da última execução
         return iterationCount;
     }
 }
